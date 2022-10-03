@@ -1,7 +1,7 @@
 # 2ASIR
 
-* [IAW]()
-* [SRI]()
-* [SAD]()
-* [HLC]()
-* [BBDD]()
+* [IAW](/IAW/)
+* [SRI](/SRI/)
+* [SAD](/SAD/)
+* [HLC](/HLC/)
+* [BBDD](/BBDD/)
