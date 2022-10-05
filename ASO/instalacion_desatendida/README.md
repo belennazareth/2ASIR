@@ -206,3 +206,32 @@ apt install apache2
 ```
 nano /var/www/html/preseed.txt
 ```
+
+[preseed](/preseed_lvm_cryp.cfg)
+
+*Nota: este preseed contiene la contraseña encriptada, se ha conseguido con el comando: ```sudo mkpasswd --method=sha-512 --stdin```
+
+Además, editamos el txt.cfg para que quede del siguiente modo:
+
+```
+nano /srv/tftp/debian-installer/amd64/boot-screens/txt.cfg
+```
+
+```
+label install
+    menu label ^Install
+    kernel debian-installer/amd64/linux
+    append vga=788 initrd=debian-installer/amd64/initrd.gz --- quiet 
+label unattended-gnome
+        menu label ^Instalacion Debian Desatendida Preseed
+        kernel debian-installer/amd64/linux
+        append vga=788 initrd=debian-installer/amd64/initrd.gz preseed/url=192.168.100.5/preseed.txt locale=es_ES console-setup/ask_detect=false keyboard-configuration/xkb-keymap=e>
+```
+
+9. Activamos el bit de forward para que se pueda realizar SNAT y pasen los paquetes de una interfaz a otra en el servidor:
+
+```
+echo 1 > /proc/sys/net/ipv4/ip_forward
+```
+
+O editando el fichero /etc/sysctl.conf para que sea persistente asignando el valor 1 a ```net.ipv4.ip_forward```
