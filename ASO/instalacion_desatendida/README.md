@@ -141,3 +141,68 @@ genisoimage -r -J -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -b
 ![preseed](/images/preseedASO-2.png)
 ![preseed](/images/preseedASO.png)
 
+# Instalación por PXE
+
+1. Iniciamos una máquina sencilla en vagrant la cual usaremos de servidor DHCP que sirva direcciones ip a los dispositivos que haya en mi red aislada de vagrant.
+
+2. Añadimos una red eth1 a la máquina vagrant con una ip estática, en mi caso se la he añadido desde virt-manager y modificando en el fichero /etc/network/interfaces añadiendo:
+
+```
+auto eth1
+iface eth1 inet static
+      address 192.168.100.10
+      netmask 255.255.255.0
+```
+
+3. Instalamos el paquete dnsmasq que nos facilita la configuración del protocolo TFTP y DHCP, y editamos el fichero:
+
+```
+sudo apt install dnsmasq
+nano /etc/dnsmasq.conf
+```
+
+Una vez dentro del fichero añadimos lo siguiente:
+
+```
+# Configuration file for dnsmasq.
+#
+#Activación servidor DHCP + establecimiento de rango de direcciones
+dhcp-range=192.168.100.50,192.168.100.150,255.255.255.0,12h
+#Fichero usado por los clientes para arrancar desde la red
+dhcp-boot=pxelinux.0
+#Habilitamos el servidor TFTP
+enable-tftp
+#Especificamos el directorio que contendrá los ficheros
+tftp-root=/srv/tftp
+```
+
+4. Creamos el directorio especificado para el protocolo TFTP y reiniciamos el servicio dnsmasq:
+
+```
+mkdir /srv/tftp
+systemctl restart dnsmasq
+```
+
+5. Entramos en el directorio /srv/tftp y descargamos los ficheros para la instalación por red:
+
+```
+wget http://ftp.debian.org/debian/dists/buster/main/installer-amd64/current/images/netboot/netboot.tar.gz
+```
+
+6. Usamos tar para descomprimir el fichero tar.gz:
+
+```
+tar -zxf netboot.tar.gz && rm netboot.tar.gz
+```
+
+7. Instalamos el servidor apachedonde se almacena el fichero preseed:
+
+```
+apt install apache2
+```
+
+8. Creamos el fichero preseed en el servidor, para ello creamos y editamos del siguiente modo:
+
+```
+nano /var/www/html/preseed.txt
+```
