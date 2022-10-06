@@ -235,3 +235,36 @@ echo 1 > /proc/sys/net/ipv4/ip_forward
 ```
 
 O editando el fichero /etc/sysctl.conf para que sea persistente asignando el valor 1 a ```net.ipv4.ip_forward```
+
+10. Instalamos nftables para poder hacer NAT, lo arrancamos y habilitamos para que se inicie cada vez que arranque la máquina:
+
+```
+apt install nftables
+systemctl start nftables.service
+systemctl enable nftables.service
+```
+
+11. Creamos una tabla nueva en nftables y comprobamos que se ha realizado correctamente, despues creamos el postrouting que permitira que modifique los paquetes antes de que salgan del equipo:
+
+```
+nft add table nat
+nft list tables
+nft add chain nat postrouting { type nat hook postrouting priority 100 \; }
+```
+
+12. Añadimos una regla de postrouting que nos permita hacer SNAT dinámico ya que la ip pública puede cambiar y listamos para comprobar que se ha añadido:
+
+```
+nft add rule ip nat postrouting oifname "eth0" ip saddr 192.168.100.0/24 counter masquerade
+nft list ruleset
+```
+
+Para que sea persistente ejecutamos:
+
+```
+nft list ruleset > /etc/nftables.conf
+```
+
+13. Por último en una máquina vacía configuramos de tal manera que resulte:
+
+
