@@ -138,8 +138,8 @@ genisoimage -r -J -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -b
 
 9. Creamos la máquina (con 10GB de almacenamiento mínimo) introduciendo como imagen ISO la creada con preseed, al iniciar la máquina aparecerá un menu del que tendremos que seleccionar la opción de instalación desatendida:
 
-!(preseed)[/images/preseedASO-2.png]
-!(preseed)[/images/preseedASO.png]
+![preseed](images/preseedASO-2.png)
+![preseed](images/preseedASO.png)
 
 # Instalación por PXE
 
