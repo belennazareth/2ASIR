@@ -271,3 +271,19 @@ nft list ruleset > /etc/nftables.conf
 ![preseed](images/preseedASO-4.png)
 ![preseed](images/preseedASO-5.png)
 
+Al iniciar la máquina deberemos realizar la accion ```Esc``` para poder entrar al boot e introducir:
+
+```
+auto url=[ip]/preseed.txt
+```
+
+En mi caso:
+
+```
+auto url=192.168.100.10/preseed.txt
+```
+
+*Nota: Para poder hacer una red aislada en virt-manager seleccionamos ```Editar > Detalles de la conexión```, una vez dentro añadimos una red en Redes virtuales y la configuramos:
+
+![preseed](images/preseedASO-6.png)
+![preseed](images/preseedASO-7.png)
