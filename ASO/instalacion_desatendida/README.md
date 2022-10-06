@@ -267,4 +267,7 @@ nft list ruleset > /etc/nftables.conf
 
 13. Por último en una máquina vacía configuramos de tal manera que resulte:
 
+![preseed](images/preseedASO-3.png)
+![preseed](images/preseedASO-4.png)
+![preseed](images/preseedASO-5.png)
 
