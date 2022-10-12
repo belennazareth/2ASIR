@@ -186,7 +186,7 @@ systemctl restart dnsmasq
 5. Entramos en el directorio /srv/tftp y descargamos los ficheros para la instalación por red:
 
 ```
-wget http://ftp.debian.org/debian/dists/buster/main/installer-amd64/current/images/netboot/netboot.tar.gz
+wget http://ftp.debian.org/debian/dists/bullseye/main/installer-amd64/current/images/netboot/netboot.tar.gz
 ```
 
 6. Usamos tar para descomprimir el fichero tar.gz:
