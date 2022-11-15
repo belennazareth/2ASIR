@@ -1,0 +1,14 @@
+dev tun
+  remote sputnik.gonzalonazareno.org
+  ifconfig 172.23.0.0 255.255.255.0
+  pull
+  proto tcp-client
+  tls-client
+  # remote-cert-tls server
+  ca /etc/ssl/certs/gonzalonazareno.crt 
+  cert /etc/openvpn/ThousandSunny.crt 
+  key /etc/ssl/private/ThousandSunny.key 
+  comp-lzo
+  keepalive 10 60
+  log /var/log/openvpn-sputnik.log
+  verb 1

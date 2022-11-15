@@ -1,0 +1,58 @@
+-- 1. Creación tabla alumnos
+
+CREATE TABLE ALUMNOS(
+
+DNI VARCHAR2(12),
+NOMBRE VARCHAR2(80),
+APELLIDOS VARCHAR2(80),
+CORREO VARCHAR2(200),
+
+CONSTRAINT PK_ALUMNOS PRIMARY KEY (DNI),
+CONSTRAINT CH_DNI CHECK (REGEXP_LIKE ( DNI, '^[0-9]{2}\.[0-9]{3}\.[0-9]{3}-[A-Z]{1}')),
+CONSTRAINT CH_NOMBRE CHECK (NOMBRE = INITCAP (NOMBRE)),
+CONSTRAINT CH_APELLIDOS CHECK (APELLIDOS = INITCAP(APELLIDOS)),
+CONSTRAINT CH_CORREO CHECK (REGEXP_LIKE(CORREO, '^.*@.*$'))
+
+);
+
+INSERT INTO ALUMNOS VALUES ('12.345.678-A', 'Pepe', 'Garcia', 'pepegarcia1@gmail.com');
+INSERT INTO ALUMNOS VALUES ('67.345.012-B', 'Laura', 'Rodriguez', 'LauraRod22@gmail.com');
+INSERT INTO ALUMNOS VALUES ('67.345.012-B', 'Lidia', 'Marin', 'lidiamm123@gmail.es');
+
+-- 2. Consulta apellido que empieza por R con dominio .es
+
+SELECT NOMBRE
+FROM ALUMNOS
+WHERE APELLIDOS LIKE 'R%' AND CORREO LIKE '%es';
+
+-- 3. Creación tabla Notas
+
+CREATE TABLE NOTAS(
+
+DNI VARCHAR2(12),
+MODULO VARCHAR2(15),
+NOTA INT(2),
+
+CONSTRAINT FK_NOTAS FOREIGN KEY (DNI) REFERENCES ALUMNOS(DNI),
+CONSTRAINT CH_MODULO CHECK (MODULO IN ('ABD','SAD','Servicios','Sistemas')),
+CONSTRAINT CH_NOTA CHECK (NOTA BETWEEN 0 AND 10)
+
+);
+
+-- 4. Consulta que muestre los alumnos con más de 3 notas mayores que 7
+
+SELECT NOMBRE
+FROM ALUMNOS
+WHERE DNI = (SELECT DNI
+            FROM NOTAS
+            WHERE NOTA > 7
+            );
+
+-- 5. Procedimiento que reciba dni y muestre todas las notas con excepciones: alum inexist., alum sin nota
+
+CREATE OR REPLACE PROCEDURE MOSTRAR_NOTAS(P_DNI NOTAS.DNI%TYPE)
+IS 
+    V_NOTAS NOTAS.NOTA%TYPE;
+BEGIN
+    
+END MOSTRAR_NOTAS;

@@ -1,0 +1,24 @@
+ident activos → hardware, software, comunicaciones y datos cosas de valor
+
+val activos → importancia a los activos
+
+PLAN PREVENCION
+
+id amenazas → identificar si es terremots...
+
+	* fisicas
+	* logicas
+	
+analisis amenazas → analizar costes 
+
+id medidas → medidas prevenir amenazas
+
+coste medidas → coste de las medidas anteriores (id medidas)
+
+**********
+
+PLAN CONTINGENCIAS → como contener lo que ya ha ocurrido 
+
+analisis costes → costes por culpa de lo que ha ocurrido
+solucion amenaza → lo que hicimos para solucionarlo
+

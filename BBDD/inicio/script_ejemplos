@@ -1,0 +1,29 @@
+# script pl/sql
+# saludar a los empleados
+
+select 'hola' || ename
+from emp;
+
+# crear un usuario en la bd para cada empleado 
+
+select 'create user' || ename || 'identified by' || ename || ';'
+from emp;
+
+## la salida:
+
+create user allen identified by allen;
+create user smith identified by smith;
+create user adams identified by adams;
+...
+
+# dar permiso en cada tabla 
+
+select 'grant insert on' || tablename || 'to raul;'
+from user_tables;
+
+grant insert on emp to raul;
+grant insert on dept to raul;
+grant insert on bonus to raul;
+...
+
+
