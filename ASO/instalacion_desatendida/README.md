@@ -186,7 +186,7 @@ systemctl restart dnsmasq
 5. Entramos en el directorio /srv/tftp y descargamos los ficheros para la instalación por red:
 
 ```
-wget http://ftp.debian.org/debian/dists/buster/main/installer-amd64/current/images/netboot/netboot.tar.gz
+wget http://ftp.debian.org/debian/dists/bullseye/main/installer-amd64/current/images/netboot/netboot.tar.gz
 ```
 
 6. Usamos tar para descomprimir el fichero tar.gz:
@@ -225,7 +225,7 @@ label install
 label unattended-gnome
         menu label ^Instalacion Debian Desatendida Preseed
         kernel debian-installer/amd64/linux
-        append vga=788 initrd=debian-installer/amd64/initrd.gz preseed/url=192.168.100.5/preseed.txt locale=es_ES console-setup/ask_detect=false keyboard-configuration/xkb-keymap=e>
+        append vga=788 initrd=debian-installer/amd64/initrd.gz preseed/url=192.168.100.10/preseed.txt locale=es_ES console-setup/ask_detect=false keyboard-configuration/xkb-keymap=e>
 ```
 
 9. Activamos el bit de forward para que se pueda realizar SNAT y pasen los paquetes de una interfaz a otra en el servidor:
